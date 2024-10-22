@@ -1,9 +1,8 @@
-
 import pandas as pd
 import numpy as np
 
 
-def calculate_distance_matrix(df: pd.DataFrame) -> pd.DataFrame:
+def calculate_distance_matrix(df: pd.DataFrame) -> pd.DataFrame():
     df_pivot = df.pivot(index='ID1', columns='ID2', values='Distance').fillna(0)
     distance_matrix = df_pivot + df_pivot.T
     np.fill_diagonal(distance_matrix.values, 0)
@@ -13,10 +12,10 @@ def calculate_distance_matrix(df: pd.DataFrame) -> pd.DataFrame:
                 distance_matrix.iloc[i, j] = distance_matrix.iloc[i].add(distance_matrix.iloc[:, j]).min()
                 distance_matrix.iloc[j, i] = distance_matrix.iloc[i, j]
 
-    return distance_matrix
+    return df
 
 
-def unroll_distance_matrix(df: pd.DataFrame) -> pd.DataFrame:
+def unroll_distance_matrix(df: pd.DataFrame) -> pd.DataFrame():
     unrolled = []
     for id_start in df.index:
         for id_end in df.columns:
@@ -24,21 +23,21 @@ def unroll_distance_matrix(df: pd.DataFrame) -> pd.DataFrame:
             if id_start != id_end:  
                 unrolled.append({'id_start': id_start, 'id_end': id_end, 'distance': distance})
 
-    return pd.DataFrame(unrolled)
+    return df
 
 
 
-def find_ids_within_ten_percentage_threshold(df: pd.DataFrame, reference_id: str) -> pd.DataFrame:
+def find_ids_within_ten_percentage_threshold(df: pd.DataFrame, reference_id: str) -> pd.DataFrame():
     reference_distance = df[df['id_start'] == reference_id]['distance'].mean()
     lower_bound = reference_distance * 0.9
     upper_bound = reference_distance * 1.1
 
     within_threshold = df[(df['distance'] >= lower_bound) & (df['distance'] <= upper_bound)]
-    return within_threshold
+    return df
 
 
 
-def calculate_toll_rate(df: pd.DataFrame) -> pd.DataFrame:
+def calculate_toll_rate(df: pd.DataFrame) -> pd.DataFrame():
     toll_rates = {
         'moto': 0.8,  
         'car': 1.2,   
@@ -55,7 +54,7 @@ def calculate_toll_rate(df: pd.DataFrame) -> pd.DataFrame:
 
 
 
-def calculate_time_based_toll_rates(df: pd.DataFrame) -> pd.DataFrame:
+def calculate_time_based_toll_rates(df: pd.DataFrame) -> pd.DataFrame():
     discounts = {
         'weekday': 0.9,  
         'weekend': 1.0   

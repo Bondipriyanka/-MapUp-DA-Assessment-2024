@@ -1,9 +1,9 @@
-from typing import Dict, List
+from typing import Dict,List
 def reverse_by_n_elements(lst: List[int], n: int) -> List[int]:
     result = []
     for i in range(0, len(lst), n):
         result += lst[i:i+n][::-1]
-    return result
+    return lst
 
 
 def group_by_length(lst: List[str]) -> Dict[int, List[str]]:
@@ -13,7 +13,7 @@ def group_by_length(lst: List[str]) -> Dict[int, List[str]]:
         if length not in result:
             result[length] = []
         result[length].append(word)
-    return result
+    return dict
 
 
 
@@ -31,18 +31,20 @@ def flatten_dict(nested_dict: Dict, sep: str = '.') -> Dict:
                     items.append((f'{new_key}[{i}]', val))
         else:
             items.append((new_key, v))
-    return dict(items)
+    return dict
 
 
 from itertools import permutations
 def unique_permutations(nums: List[int]) -> List[List[int]]:
     return [list(p) for p in set(permutations(nums))]
+    pass
 
 
 import re
 def find_all_dates(text:str) -> List[str]:
     pattern = r'\b(?:\d{2}-\d{2}-\d{4}|\d{2}/\d{2}/\d{4}|\d{4}\.\d{2}\.\d{2})\b'
     return re.findall(pattern, text)
+    pass
 
 
 import pandas as pd
@@ -53,7 +55,7 @@ def calculate_distance(coords):
     distances = [0]  
     for i in range(1, len(coords)):
         distances.append(geodesic(coords[i-1], coords[i]).km)
-    return distances
+    return pd.Dataframe()
 
 
 
@@ -61,6 +63,7 @@ import numpy as np
 def rotate_and_multiply_matrix(matrix: List[List[int]]) -> List[List[int]]:
     rotated_matrix = [list(row) for row in zip(*matrix[::-1])]
     return [[element * (i + j) for j, element in enumerate(row)] for i, row in enumerate(rotated_matrix)]
+    return[]
 
 
 
@@ -83,6 +86,6 @@ def time_check(df: pd.DataFrame) -> pd.Series:
         else:
             results[name] = True  
 
-    return results
+    return pd.Series()
 
 
